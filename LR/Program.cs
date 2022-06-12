@@ -9,40 +9,40 @@ namespace LR
             int n = int.Parse(Console.ReadLine());
             string[] numereString =Console.ReadLine().Split(' ') ;
             int[] numere=new int[n];
+
             for (int i = 0; i <n ; i++)
             {
                 numere[i] = int.Parse(numereString[i]);
             }
             int LR = 0;
-            int maxLeft = numere[0];
-            for (int i = 1; i < n-1 ; i++)
+            int[] left=new int[n];
+            int[] right=new int[n];
+            int min = numere[n - 1];
+            int max = numere[0];
+
+            for (int i = 0; i < n; i++)
             {
-                bool okLeft = false;
-                bool okRight = true;
-                
-                    if (numere[i]>=maxLeft)
-                    {
-                        okLeft = true;
-                        maxLeft = numere[i];
-                    }
-
-                if (okLeft)
+                if (numere[i] >= max)
                 {
-                    for (int r = i; r < n; r++)
-                    {
-                        if (numere[i] > numere[r])
-                        {
-                            okRight = false;
-                            break;
-                        }
-
-                    }
+                    max = numere[i];
+                    left[i] = max;
                 }
-                if (okLeft&&okRight)
+            }
+
+            for (int i = n - 1; i >= 0; i--)
+            {
+                if (numere[i] <= min)
+                {
+                    min = numere[i];
+                    right[i] = min;
+                }
+            }
+            for (int i = 1; i < n - 1; i++)
+            {
+                if (numere[i] == left[i] && left[i] == right[i])
                 {
                     LR++;
                 }
-
             }
             Console.WriteLine(LR);
 
